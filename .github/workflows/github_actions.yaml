@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy: 
         matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+          os: [windows-latest, ubuntu-latest]
     
     steps:
       - uses: actions/checkout@v3
@@ -23,15 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Install Chrome WebDriver
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        if: matrix.os == 'ubuntu-latest'
         run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-          LATEST_CHROMEDRIVER_VERSION=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          wget https://chromedriver.storage.googleapis.com/latest/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip -d $HOME/bin
+          rm chromedriver_linux64.zip
+
 
       - name: Execute Behave tests Windows
         if: matrix.os=='windows-latest' 
