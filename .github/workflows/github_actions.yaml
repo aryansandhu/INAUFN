@@ -15,15 +15,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r PIPELINE_TRAINNG_PROJECT/requirements.txt
+          pip install -r INAUFN/requirements.txt
       - name: Execute Behave tests
         run: |
-          cd PIPELINE_TRAINNG_PROJECT
+          cd INAUFN
           behave .\features\OrgangeHRMLogin.feature
       - name: Upload Test Results
         if: success() || failure()
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: PIPELINE_TRAINNG_PROJECT/JunitReports/TESTS-*.xml
+          path: INAUFN/JunitReports/TESTS-*.xml
     
