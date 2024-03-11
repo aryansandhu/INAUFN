@@ -4,7 +4,7 @@ from allure_commons.types import AttachmentType
 
 
 def before_all(context):
-    context.driver = webdriver.Chrome()
+    context.driver = webdriver.Chromium()
     # context.text_value = 10
 
 # def after_step(context, step):
