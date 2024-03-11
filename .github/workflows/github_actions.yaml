@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy: 
         matrix:
-          os: [windows-latest, macos-latest]
+          os: [windows-latest, macos-latest,ubuntu-latest]
     
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: 119
+          chrome-version: 109
 
       - name: Execute Behave tests Windows
         if: matrix.os=='windows-latest' 
