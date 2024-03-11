@@ -23,15 +23,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Set up Chrome
-        uses: browser-actions/setup-chrome@latest    
-      - name: Install Chrome WebDriver
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip -d $HOME/bin
-          rm chromedriver_linux64.zip
-
-
+        uses: browser-actions/setup-chrome@latest
       - name: Execute Behave tests Windows
         if: matrix.os=='windows-latest' 
         run: 
