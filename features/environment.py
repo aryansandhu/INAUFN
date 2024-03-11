@@ -4,7 +4,13 @@ from allure_commons.types import AttachmentType
 
 
 def before_all(context):
-    context.driver = webdriver.Chrome()
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--headless")
+    context.driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+
+   
     # context.text_value = 10
 
 # def after_step(context, step):
