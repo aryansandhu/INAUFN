@@ -25,7 +25,7 @@ jobs:
       - name: Install Chrome WebDriver
         if: matrix.os == 'ubuntu-latest'
         run: |
-          wget https://chromedriver.storage.googleapis.com/latest/chromedriver_linux64.zip
+          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip -d $HOME/bin
           rm chromedriver_linux64.zip
 
