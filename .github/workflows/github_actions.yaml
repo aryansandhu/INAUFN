@@ -4,10 +4,14 @@ on:
     branches:
       - main
   schedule:
-      - cron: '0 22 * * *'    
+      - cron: '40 16 * * *'    
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{matrix.os}}
+    strategy: 
+        matrix:
+          os: [windows-latest]
+    
     steps:
       - uses: actions/checkout@v3
       - name: Setup Python 3.11
@@ -18,9 +22,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Execute Behave tests
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@latest
+      - name: Chrome version
+        run: chrome --version	
+      - name: Execute Behave tests Windows
+        if: matrix.os=='windows-latest' 
         run: 
           behave .\features\OrgangeHRMLogin.feature
+      - name: Execute Behave tests Non Windows
+        if: matrix.os=='ubuntu-latest'|| matrix.os== 'macos-latest'
+        run: 
+          behave ./features/OrgangeHRMLogin.feature    
       - name: Upload Test Results
         if: success() || failure()
         uses: actions/upload-artifact@v3
