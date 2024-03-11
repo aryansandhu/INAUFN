@@ -22,9 +22,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Execute Behave tests
+      - name: Execute Behave tests Windows
+        if: matrix.os=='windows-latest' 
         run: 
           behave .\features\OrgangeHRMLogin.feature
+      - name: Execute Behave tests Non Windows
+        if: matrix.os=='ubuntu-latest'|| matrix.os== 'macos-latest'
+        run: 
+          behave ./features/OrgangeHRMLogin.feature    
       - name: Upload Test Results
         if: success() || failure()
         uses: actions/upload-artifact@v3
